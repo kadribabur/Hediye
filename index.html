@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="tr">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Doğum Günü Kutlaması</title>
+        <!-- Bootstrap CSS -->
+        <link
+            href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css"
+            rel="stylesheet">
+        <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+            background: linear-gradient(135deg, #04caba 0%, #7bb8c2 100%);
+            position: relative;
+        }
+
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .star {
+            position: absolute;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: rgb(248, 248, 248);
+            opacity: 0.8;
+            animation: moveStars 5s linear infinite;
+        }
+
+        @keyframes moveStars {
+            from {
+                transform: translateY(0) translateX(0);
+            }
+            to {
+                transform: translateY(100vh) translateX(100px);
+            }
+        }
+
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+        }
+
+        .balloons {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            display: none;
+        }
+
+        .balloon {
+            position: absolute;
+            bottom: -100px;
+            width: 30px;
+            height: 50px;
+            animation: fly 7s ease-in infinite;
+            z-index: -1;
+        }
+
+        
+
+        .tres {
+            animation-name: trees1;
+            animation-duration: 7s;
+            animation-iteration-count: infinite;
+            animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        @keyframes trees1 {
+            20%
+            {
+                color: red;
+                text-shadow: 2px 2px rgb(24, 11, 11);
+                background-color: #fff;
+            }
+            40%
+            {
+                color: rgb(0, 255, 8);
+                text-shadow: 2px 2px rgb(246, 5, 5);
+                background-color: blue;
+            }
+            60%
+            {
+                color: rgb(253, 0, 0);
+                text-shadow: 2px 2px rgb(163, 232, 3);
+                background-color: chocolate;
+            }
+            80%
+            {
+                color: rgb(12, 162, 1);
+                text-shadow: 2px 2px rgb(50, 0, 251);
+                background-color: rgb(242, 255, 0);
+            }
+            100%
+            {
+                color: rgb(77, 23, 42);
+                text-shadow: 2px 2px rgb(255, 170, 1);
+                background-color: #f5eded;
+            }
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #ff4081;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #e91e63;
+        }
+
+        .string {
+            width: 2px;
+            height: 25px;
+            background-color: #555;
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        @keyframes fly {
+            0% {
+                transform: translateY(0) translateX(0);
+            }
+            100% {
+                transform: translateY(-100vh) translateX(calc(-80px + 80px * var(--random-x)));
+            }
+        }
+
+        /* Modal için stil */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+
+        .modal img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .message-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            padding: 10px 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 5px;
+        }
+
+        .mesage_button2
+        {
+          position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            padding: 10px 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 5px;
+        }
+        
+
+        .birthday-message {
+            display: none;
+            margin-top: 20px;
+            font-size: 15px;
+            color: cadetblue;
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            animation-name: renkli;
+            animation-duration: 7s;
+            animation-timing-function: cubic-bezier(0.785, 0.135, 0.15, 0.86);
+            animation-iteration-count: infinite;
+            
+        }
+        .mercan {
+            position: absolute;
+            font-size: 24px;
+            font-weight: bold;
+            color: #FF69B4;
+            animation: float 5s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-200px);
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        #MercanContainer
+        {
+            animation-name: renkli;
+            animation-duration: 7s;
+            animation-iteration-count: infinite;
+            animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
+            
+        }
+
+        @keyframes renkli {
+            20%
+            {
+                color: red;
+                text-shadow: 2px 2px rgb(24, 11, 11);
+            }
+            40%
+            {
+                color: rgb(0, 255, 8);
+                text-shadow: 2px 2px rgb(246, 5, 5);
+            }
+            60%
+            {
+                color: rgb(253, 0, 0);
+                text-shadow: 2px 2px rgb(163, 232, 3);
+            }
+            80%
+            {
+                color: rgb(12, 162, 1);
+                text-shadow: 2px 2px rgb(50, 0, 251);
+            }
+            100%
+            {
+                color: rgb(77, 23, 42);
+                text-shadow: 2px 2px rgb(255, 170, 1);
+            }
+        }
+        </style>
+    </head>
+    <body>
+        <div class="stars"></div>
+        <div class="container shadow-lg p-4 rounded tres">
+            <h1 class="text-primary mb-3">MAĞARA ADAMINDAN SANA HEDİYE!</h1>
+            <div class="Buyut">
+                <img
+                    src="Hediyen.gif"
+                    alt="Hediye Kutusu"
+                    id="giftImage"
+                    class="img-fluid mb-4"
+                    style="max-width: 250px; cursor: pointer;">
+                <button type="button" class="mesage_button2">Tıkla</button>
+            </div>
+            <br>
+            <button id="surpriseButton"
+                class="btn btn-primary btn-lg mt-3">Sürprizi Gör!</button>
+            <div id="balloons" class="balloons MercanContainer">MERCANN</div>
+        </div>
+        <!-- Modal -->
+        <div id="imageModal" class="modal">
+            <span class="close-modal">&times;</span>
+            <img
+                src="sen1.jpg"
+                alt="Sen"
+                id="sen1"
+                width="500px"
+                height="500px">
+            <button class="message-button">Mesajı Gör</button>
+            <pre id="birthdayMessage" class="birthday-message">
+                            &#127802 &#127802
+
+            DOĞUM GÜNÜN KUTLU OLSUNNN! İYİ Kİİİ DOOĞDUN!
+            SENİN GİBİ BİRİNİ TANIMAK 
+            HAYATIMDAKİ EN GÜZEL ŞANS BENİM İÇİN :)
+            YENİ YAŞININ SANA HER ZAMAN MUTLULUK 
+            SAĞLIK VE BAŞARI GETİRMESİNİ DİLİYORUM.
+            NİCE YILLARAA! 
+            "La tua voce è la melodia più dolce per me."`
+
+                            &#127802 &#127802
+            </pre>
+        </div>
+        <div id="MercanContainer"></div>
+        <!-- Bootstrap JS -->
+        <script
+            src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+        <script>
+        // Yıldızları oluştur
+        document.addEventListener("DOMContentLoaded", function() {
+            const starsContainer = document.querySelector('.stars');
+
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.top = Math.random() * 100 + 'vh';
+                star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                starsContainer.appendChild(star);
+            }
+        });
+
+        // Hediye kutusuna tıklandığında modal'ı aç
+        
+        const modal = document.getElementById("imageModal");
+        const closeModal = document.querySelector(".close-modal");
+        const birthdayMessage = document.getElementById("birthdayMessage");
+        
+
+        // Hediye kutusu yerine butona tıklandığında modal'ı aç
+        const giftButton = document.querySelector(".mesage_button2"); // Butonu seç
+
+        giftButton.addEventListener("click", function() {
+            modal.style.display = "flex";  // Modalı göster
+        });
+
+        closeModal.addEventListener("click", function() {
+            modal.style.display = "none";  // Modalı kapat
+        });
+
+        document.addEventListener("click", function(event) {
+            if (event.target === modal) {
+                modal.style.display = "none";  // Modal dışına tıklanınca kapat
+            }
+        });
+
+        
+
+        // Rastgele renk oluşturma fonksiyonu
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        // Resme tıklandığında doğum günü mesajı ekrana gelsin
+        modal.querySelector("img").addEventListener("click", function() {
+            birthdayMessage.textContent = `DOĞUM GÜNÜN KUTLU OLSUNNNN! İYİ Kİİİ DOOĞDUN!
+            SENİN GİBİ BİRİNİ TANIMAK HAYATIMDAKİ EN GÜZEL ŞANS BENİM İÇİN :)
+            YENİ YAŞININ SANA HER ZAMAN MUTLULUK, SAĞLIK VE BAŞARI GETİRMESİNİ DİLİYORUM. 
+            NİCE YILLARAA! "La tua voce è la melodia più dolce per me."`;
+        });
+
+        
+
+        
+        // Sürpriz butonuna tıklandığında "Nergis" isimlerinin ekrana gelmesini sağla
+        document.getElementById("surpriseButton").addEventListener("click", function() {
+            const MercanContainer = document.getElementById("MercanContainer");
+
+            // 5 adet "Nergis" ismi oluştur ve ekrana yerleştir
+            for (let i = 0; i < 10; i++) {
+                const mercan = document.createElement("div");
+                mercan.className = "mercan";
+                mercan.textContent = "MERCAN";
+                
+                // Rastgele konum ver
+                mercan.style.left = Math.random() * 90 + "vw";
+                mercan.style.top = Math.random() * 90 + "vh";
+                
+                // Konteynere ekle
+                MercanContainer.appendChild(mercan);
+            }
+        });
+
+        const senImage = document.getElementById("sen1");
+        const messageButton = document.querySelector(".message-button");
+
+        messageButton.addEventListener("click", function() {
+            senImage.style.display = "none";  // Resmi gizle
+            messageButton.style.display = "none";  // Butonu gizle
+            birthdayMessage.style.display = "block";  // Mesajı göster
+        });
+        </script>
+    </body>
+</html>
